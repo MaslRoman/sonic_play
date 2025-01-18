@@ -160,12 +160,6 @@ while running:
             flipped_sonic = pygame.transform.flip(sonic_costume[costume_number], True, False)
             screen.blit(flipped_sonic, (x_sonic, y_sonic))
 
-        screen.blit(sonic_2, (100, 0))
-        screen.blit(sonic_3, (200, 0))
-        screen.blit(sonic_4, (300, 0))
-        screen.blit(sonic_5, (400, 0))
-        screen.blit(sonic_6, (500, 0))
-        screen.blit(sonic_7, (600, 0))
 
     pygame.display.flip()  # обнавляем экран FPS
 
