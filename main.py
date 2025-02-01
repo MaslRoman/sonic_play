@@ -1,5 +1,6 @@
 import pygame
 import sys
+from pytmx.util_pygame import load_pygame#импортировали pytmx для работы с файлами tmx
 pygame.init()  # инициализируем Pygame
 
 pygame.mixer.music.load('music/sonic_music.mp3')
@@ -54,6 +55,8 @@ sonic_6 = pygame.transform.scale(sonic_6, (75, 100))
 
 sonic_7 = pygame.image.load('move right/sonic7.png')
 sonic_7 = pygame.transform.scale(sonic_7, (75, 100))
+
+tmx_data = load_pygame("tiels/level_1_sonic.tmx")#загрузили карту
 
 time_1 = pygame.time.get_ticks() + 5000
 
