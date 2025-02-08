@@ -4,7 +4,7 @@ from pytmx.util_pygame import load_pygame#импортировали pytmx дл�
 pygame.init()  # инициализируем Pygame
 
 pygame.mixer.music.load('music/sonic_music.mp3')
-pygame.mixer.music.set_volume(0.1)
+pygame.mixer.music.set_volume(0.0001)
 pygame.mixer.music.play(-1)
 
 
@@ -30,31 +30,36 @@ button_exit = pygame.Rect(520, 650, 150, 90)
 text_exit = my_font.render(('Exit'), False, (255, 165, 0))
 text_rect_exit = text_exit.get_rect(center=button_exit.center)
 
-button_rect = pygame.Rect(820, 650, 150, 90)  # шаг 1--создаю формы для кнопки (координаты и размеры)
+button_play_rect = pygame.Rect(820, 650, 150, 90)  # шаг 1--создаю формы для кнопки (координаты и размеры)
 
 text_surface = my_font.render('Play', True, (255, 165, 0))
-text_rect_play = text_surface.get_rect(center=button_rect.center)
+text_rect_play = text_surface.get_rect(center=button_play_rect.center)
 
 sonic_1 = pygame.image.load('move right/sonic1.png')
-sonic_1 = pygame.transform.scale(sonic_1, (75, 100))
+sonic_1 = pygame.transform.scale(sonic_1, (30, 45))
+#превратили картинку в прямоугольниг(rect) что бы потом настроить колизию с другиими обьектами
+sonic_rect=sonic_1.get_rect()
+print(sonic_rect)
+
+
 
 sonic_2 = pygame.image.load('move right/sonic2.png')
-sonic_2 = pygame.transform.scale(sonic_2, (75, 100))
+sonic_2 = pygame.transform.scale(sonic_2, (30, 45))
 
 sonic_3 = pygame.image.load('move right/sonic3.png')
-sonic_3 = pygame.transform.scale(sonic_3, (75, 100))
+sonic_3 = pygame.transform.scale(sonic_3, (30, 45))
 
 sonic_4 = pygame.image.load('move right/sonic4.png')
-sonic_4 = pygame.transform.scale(sonic_4, (75, 100))
+sonic_4 = pygame.transform.scale(sonic_4, (30, 45))
 
 sonic_5 = pygame.image.load('move right/sonic5.png')
-sonic_5 = pygame.transform.scale(sonic_5, (75, 100))
+sonic_5 = pygame.transform.scale(sonic_5, (30, 45))
 
 sonic_6 = pygame.image.load('move right/sonic6.png')
-sonic_6 = pygame.transform.scale(sonic_6, (75, 100))
+sonic_6 = pygame.transform.scale(sonic_6, (30, 45))
 
 sonic_7 = pygame.image.load('move right/sonic7.png')
-sonic_7 = pygame.transform.scale(sonic_7, (75, 100))
+sonic_7 = pygame.transform.scale(sonic_7, (30, 45 ))
 
 tmx_data = load_pygame("tiels/level_1_sonic.tmx")#загрузили карту с помощью load_pygame
 
@@ -91,7 +96,8 @@ while running:
             # print(events.pos)
             x = events.pos[0]
             y = events.pos[1]
-            if x >= 820 and x <= 970 and y >= 650 and y <= 740:
+            #метод collidepoint определяет нажатие по обьекту rect используя координаты мыши
+            if button_play_rect.collidepoint(events.pos):#
                 logika = 1
 
             if x >= 520 and x <= 700 and y >= 650 and y <= 740:
@@ -143,7 +149,7 @@ while running:
         screen.blit(image_1, (0, 0))
 
         pygame.draw.ellipse(screen, (135, 206, 250),
-                            button_rect)  # шаг 1--отобразили объект и установили характиристики
+                            button_play_rect)  # шаг 1--отобразили объект и установили характиристики
 
         pygame.draw.ellipse(screen, (135, 206, 250), button_exit)
 
@@ -151,6 +157,7 @@ while running:
 
         screen.blit(text_exit, text_rect_exit)
     elif logika == 1:
+
 
         # Получаем размеры тайлов и сохраняем их в отдельные переменные
         tile_width = tmx_data.tilewidth  # Ширина одного тайла (например, 32 пикселя)
@@ -163,7 +170,7 @@ while running:
                     tile = tmx_data.get_tile_image_by_gid(gid)  # Получаем изображение тайла по его идентификатору
                     if tile:
                         # Вычисляем координаты для отрисовки тайла в пикселях, используя заранее сохранённые размеры
-                        pixel_x = х * tile_width  # х-координата в пикселях
+                        pixel_x = x * tile_width  # х-координата в пикселях
                         pixel_y = y * tile_height  # у-координата в пикселях
                         screen.blit(tile, (pixel_x, pixel_y))  # Отрисовываем тайл на экране
 
