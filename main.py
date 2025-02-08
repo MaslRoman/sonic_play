@@ -56,7 +56,7 @@ sonic_6 = pygame.transform.scale(sonic_6, (75, 100))
 sonic_7 = pygame.image.load('move right/sonic7.png')
 sonic_7 = pygame.transform.scale(sonic_7, (75, 100))
 
-tmx_data = load_pygame("tiels/level_1_sonic.tmx")#загрузили карту
+tmx_data = load_pygame("tiels/level_1_sonic.tmx")#загрузили карту с помощью load_pygame
 
 time_1 = pygame.time.get_ticks() + 5000
 
@@ -152,8 +152,31 @@ while running:
         screen.blit(text_exit, text_rect_exit)
     elif logika == 1:
 
+        # Получаем размеры тайлов и сохраняем их в отдельные переменные
+        tile_width = tmx_data.tilewidth  # Ширина одного тайла (например, 32 пикселя)
+        tile_height = tmx_data.tileheight  # Высота одного тайла (например, 32 пикселя)
 
-        screen.fill(blue)  # делаем экран синего цвета
+        # Проходимся по всем видимым слоям ТМХ карты
+        for layer in tmx_data.visible_layers:
+            if hasattr(layer, 'data'):  # Проверяем, что слой содержит данные (т.е. это тайловый слой)
+                for x, y, gid in layer:
+                    tile = tmx_data.get_tile_image_by_gid(gid)  # Получаем изображение тайла по его идентификатору
+                    if tile:
+                        # Вычисляем координаты для отрисовки тайла в пикселях, используя заранее сохранённые размеры
+                        pixel_x = х * tile_width  # х-координата в пикселях
+                        pixel_y = y * tile_height  # у-координата в пикселях
+                        screen.blit(tile, (pixel_x, pixel_y))  # Отрисовываем тайл на экране
+
+
+
+
+
+
+
+
+
+
+
 
         if direction == "right":
             screen.blit(sonic_costume[costume_number], (x_sonic, y_sonic))
