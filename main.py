@@ -4,7 +4,7 @@ from pytmx.util_pygame import load_pygame#импортировали pytmx дл�
 pygame.init()  # инициализируем Pygame
 
 pygame.mixer.music.load('music/sonic_music.mp3')
-pygame.mixer.music.set_volume(0.0001)
+pygame.mixer.music.set_volume(0.01)
 pygame.mixer.music.play(-1)
 
 
@@ -77,7 +77,8 @@ direction = "right"
 move_left = False
 move_right = False
 running = True
-while running:
+while running:#итерация это-одно выполнение тела цикла
+    #print(logika)
     time_2 = pygame.time.get_ticks()
     if time_2 >= time_1:
         time_1 = pygame.time.get_ticks() + 5000
@@ -85,7 +86,7 @@ while running:
 
     # первый уровень-    игровой цикл
     for events in pygame.event.get():
-        print(events)
+        #print(events)
         # второй уровень-    цикл спроверки соббытий (проверка нажатии мышки или клавиатуры)
         if events.type == pygame.QUIT:
             running = False  # выключаем функцыю
@@ -93,23 +94,25 @@ while running:
 
 
         if events.type == pygame.MOUSEBUTTONDOWN:
-            # print(events.pos)
             x = events.pos[0]
             y = events.pos[1]
             #метод collidepoint определяет нажатие по обьекту rect используя координаты мыши
             if button_play_rect.collidepoint(events.pos):#
                 logika = 1
 
+
             if x >= 520 and x <= 700 and y >= 650 and y <= 740:
                 running = False
 
         if events.type == pygame.KEYDOWN:
-            if events.key == pygame.K_d:
+            if events.key == pygame.K_d:#условие сработает если нажата клавиша d
                 move_right = True
                 direction = "right"
         if events.type == pygame.KEYUP:
             if events.key == pygame.K_d:
                 move_right = False
+
+
 
         if events.type == pygame.KEYDOWN:
             if events.key == pygame.K_a:
@@ -140,6 +143,10 @@ while running:
     if move_right:
         x_sonic += 1
 
+    if logika==1 and y_sonic<750:
+
+        y_sonic+=5
+
     if logika == 0:
 
 
@@ -158,7 +165,6 @@ while running:
         screen.blit(text_exit, text_rect_exit)
     elif logika == 1:
 
-
         # Получаем размеры тайлов и сохраняем их в отдельные переменные
         tile_width = tmx_data.tilewidth  # Ширина одного тайла (например, 32 пикселя)
         tile_height = tmx_data.tileheight  # Высота одного тайла (например, 32 пикселя)
@@ -173,7 +179,8 @@ while running:
                         pixel_x = x * tile_width  # х-координата в пикселях
                         pixel_y = y * tile_height  # у-координата в пикселях
                         screen.blit(tile, (pixel_x, pixel_y))  # Отрисовываем тайл на экране
-
+            if hasattr(layer, 'objects'):
+                print(f"Найден слой объектов: '{layer.name}'")
 
 
 
@@ -192,7 +199,7 @@ while running:
         #метод transform.flip отображает обьект в зависемости от настроек(по вертикале или по горизонтали)
             flipped_sonic = pygame.transform.flip(sonic_costume[costume_number], True, False)
             screen.blit(flipped_sonic, (x_sonic, y_sonic))
-
+            print(y_sonic)
 
     pygame.display.flip()  # обнавляем экран FPS
 
