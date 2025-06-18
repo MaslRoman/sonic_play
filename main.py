@@ -137,12 +137,11 @@ while running:#итерация это-одно выполнение тела ц
         direction="left"
 
 
-    if move_left:
+    if move_left and x_sonic>0:
         x_sonic -= 1
 
-    if move_right:
+    if move_right and x_sonic<1520:
         x_sonic += 1
-
     if logika==1 and y_sonic<750:
 
         y_sonic+=5
