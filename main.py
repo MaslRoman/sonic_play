@@ -6,7 +6,8 @@ pygame.init()  # инициализируем Pygame
 pygame.mixer.music.load('music/sonic_music.mp3')
 pygame.mixer.music.set_volume(0.01)
 pygame.mixer.music.play(-1)
-
+speed_1 = 1
+speed_2 = 1
 
 logika = 0
 screen_width = 1550  # задаем размеры окна
@@ -75,6 +76,7 @@ index_costume=sonic_costume[costume_number]
 
 direction = "right"
 move_left = False
+move_up =False
 move_right = False
 running = True
 while running:#итерация это-одно выполнение тела цикла
@@ -107,20 +109,28 @@ while running:#итерация это-одно выполнение тела ц
         if events.type == pygame.KEYDOWN:
             if events.key == pygame.K_d:#условие сработает если нажата клавиша d
                 move_right = True
-                direction = "right"
+                direction = "right"#указываем направление что бы правельно менять костюмы персонажа
+
+            if events.key == pygame.K_a:
+                move_left = True
+                direction = "left"
+
+            if events.key == pygame.K_SPACE:
+                move_up = True
+                direction = "up"
+
+
+
+
         if events.type == pygame.KEYUP:
             if events.key == pygame.K_d:
                 move_right = False
 
-
-
-        if events.type == pygame.KEYDOWN:
-            if events.key == pygame.K_a:
-                move_left = True
-                direction = "left"
-        if events.type == pygame.KEYUP:
             if events.key == pygame.K_a:
                 move_left = False
+
+            if events.key == pygame.K_SPACE:
+                move_up = False
 
         if move_right or move_left:
             costume_number+=1
@@ -130,6 +140,7 @@ while running:#итерация это-одно выполнение тела ц
     keys=pygame.key.get_pressed()
     move_right=keys[pygame.K_d]
     move_left=keys[pygame.K_a]
+    move_up=keys[pygame.K_SPACE]
 
     if move_right and not move_left:
         direction="right"
@@ -137,14 +148,29 @@ while running:#итерация это-одно выполнение тела ц
         direction="left"
 
 
+
+    if move_left==True:
+        speed_1+=0.05
+    if move_left==False:
+        speed_1=0
+
+    if move_right==True:
+        speed_2+=0.05
+    if move_right==False:
+        speed_2=0
+
+
     if move_left and x_sonic>0:
-        x_sonic -= 1
+        x_sonic -= speed_1
 
     if move_right and x_sonic<1520:
-        x_sonic += 1
-    if logika==1 and y_sonic<750:
+        x_sonic += speed_2
 
+    if logika==1 and y_sonic<750:
         y_sonic+=5
+
+
+
 
     if logika == 0:
 
