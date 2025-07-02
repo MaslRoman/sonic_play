@@ -149,6 +149,7 @@ while running:#итерация это-одно выполнение тела ц
 
 
 
+
     if move_left==True:
         speed_1+=0.05
     if move_left==False:
@@ -169,7 +170,10 @@ while running:#итерация это-одно выполнение тела ц
     if logika==1 and y_sonic<750:
         y_sonic+=5
 
+    if move_up==True:
+        y_sonic-=10
 
+    print(y_sonic)
 
 
     if logika == 0:
