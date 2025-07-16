@@ -9,6 +9,15 @@ pygame.mixer.music.play(-1)
 speed_1 = 1
 speed_2 = 1
 
+
+x_sonic = 0
+y_sonic = 730
+lower_point=750
+vertical_speed=-12#эта переменная отвечает за скорость двежения вверх или вниз
+gravitation=0.5#гравитация роложительная потому что чем больше координата тем ниже обьект
+jump_power=-30#а сила прыжка отрицательная потому что чем меньше координата тем выше обьект
+on_ground=True
+
 logika = 0
 screen_width = 1550  # задаем размеры окна
 screen_height = 800
@@ -66,8 +75,6 @@ tmx_data = load_pygame("tiels/level_1_sonic.tmx")#загрузили карту 
 
 time_1 = pygame.time.get_ticks() + 5000
 
-x_sonic = 0
-y_sonic = 0
 
 sonic_costume=[sonic_1, sonic_2, sonic_3, sonic_4, sonic_5, sonic_6, sonic_7]
 costume_number=0
@@ -150,6 +157,7 @@ while running:#итерация это-одно выполнение тела ц
 
 
 
+
     if move_left==True:
         speed_1+=0.05
     if move_left==False:
@@ -167,11 +175,24 @@ while running:#итерация это-одно выполнение тела ц
     if move_right and x_sonic<1520:
         x_sonic += speed_2
 
-    if logika==1 and y_sonic<750:
-        y_sonic+=5
+    if logika==1:
+        y_sonic+=gravitation
 
-    if move_up==True:
-        y_sonic-=10
+
+    if y_sonic>=lower_point:
+        y_sonic=lower_point
+        on_ground=True
+        vertical_speed=-12
+    else:
+        on_ground=False
+
+    vertical_speed+=gravitation
+
+    if move_up==True and on_ground==True:
+        on_ground=False
+        y_sonic+=vertical_speed
+    on_ground=True
+
 
     print(y_sonic)
 
