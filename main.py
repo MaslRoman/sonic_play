@@ -14,7 +14,7 @@ x_sonic = 0
 y_sonic = 730
 lower_point=750
 vertical_speed=-12#эта переменная отвечает за скорость двежения вверх или вниз
-gravitation=0.5#гравитация роложительная потому что чем больше координата тем ниже обьект
+gravitation=0#гравитация роложительная потому что чем больше координата тем ниже обьект
 jump_power=-30#а сила прыжка отрицательная потому что чем меньше координата тем выше обьект
 on_ground=True
 
@@ -191,6 +191,11 @@ while running:#итерация это-одно выполнение тела ц
     if move_up==True and on_ground==True:
         on_ground=False
         y_sonic+=vertical_speed
+        vertical_speed+=1
+
+    if on_ground==False:
+        y_sonic+=vertical_speed
+        vertical_speed+=1
     on_ground=True
 
 
