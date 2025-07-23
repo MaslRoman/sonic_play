@@ -11,10 +11,10 @@ speed_2 = 1
 
 
 x_sonic = 0
-y_sonic = 730
+y_sonic = 750
+move_up =False#отввечает, нажат пробел или нет
 lower_point=750
 vertical_speed=-12#эта переменная отвечает за скорость двежения вверх или вниз
-gravitation=0#гравитация роложительная потому что чем больше координата тем ниже обьект
 jump_power=-30#а сила прыжка отрицательная потому что чем меньше координата тем выше обьект
 on_ground=True
 
@@ -83,7 +83,6 @@ index_costume=sonic_costume[costume_number]
 
 direction = "right"
 move_left = False
-move_up =False
 move_right = False
 running = True
 while running:#итерация это-одно выполнение тела цикла
@@ -175,25 +174,22 @@ while running:#итерация это-одно выполнение тела ц
     if move_right and x_sonic<1520:
         x_sonic += speed_2
 
-    if logika==1:
-        y_sonic+=gravitation
 
 
-    if y_sonic>=lower_point:
+    if y_sonic>=lower_point:#проверка нахождения соника внизу и изменение значений
         y_sonic=lower_point
         on_ground=True
         vertical_speed=-12
     else:
         on_ground=False
 
-    vertical_speed+=gravitation
 
-    if move_up==True and on_ground==True:
+    if move_up==True and on_ground==True:#если пробел нажат то тогда происходит начало прыжка
         on_ground=False
         y_sonic+=vertical_speed
         vertical_speed+=1
 
-    if on_ground==False:
+    if on_ground==False:#если соник в воздухе то тогда поднимает вверх а потом со временем его начинает опускать
         y_sonic+=vertical_speed
         vertical_speed+=1
     on_ground=True
