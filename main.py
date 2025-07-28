@@ -9,6 +9,7 @@ pygame.mixer.music.play(-1)
 speed_1 = 1
 speed_2 = 1
 
+jump_logika=0
 
 x_sonic = 0
 y_sonic = 750
@@ -183,15 +184,18 @@ while running:#итерация это-одно выполнение тела ц
     else:
         on_ground=False
 
-
     if move_up==True and on_ground==True:#если пробел нажат то тогда происходит начало прыжка
         on_ground=False
         y_sonic+=vertical_speed
         vertical_speed+=1
+        jump_logika=1
 
     if on_ground==False:#если соник в воздухе то тогда поднимает вверх а потом со временем его начинает опускать
-        y_sonic+=vertical_speed
-        vertical_speed+=1
+        if jump_logika==1:
+            y_sonic+=vertical_speed
+            vertical_speed+=1
+        if on_ground==True:
+            jump_logika=0
     on_ground=True
 
 
